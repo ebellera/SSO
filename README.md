@@ -6,8 +6,9 @@ La aplicación web utiliza la arquitectura del tipo cliente/servidor, y HTTP com
 
 1. [Introducción](#Introducción)
 2. [Funcionamiento](#Funcionamiento)
-2. [Configuracion Servidor](#Configuración-Servidor)
-3. [Configuracion GIT](#Configuración-GIT)
+2. [Configuración Servidor](#Configuración-Servidor)
+3. [Configuración GIT](#Configuración-GIT)
+4. [Configuración App](#Configuración_APP) 
 4. [Iniciar App](#Iniciar_APP)
 
 ## Introducción
@@ -46,7 +47,8 @@ const isAuthenticated = (req, res, next) => {
 };
 
 module.exports = isAuthenticated;
- ```
+
+```
 
  
 
@@ -63,7 +65,18 @@ Para correr la aplicación se deberá tener instalado:
     git clone https://github.com/ebellera/sso.git 
 ```
 
-##Iniciar_APP
+## Configuración_APP
+
+Para poder iniciar la App, debemos instalar antes las dependencias de los framworks Express, Morgan y ejs-mate.
+Para lo cual debemos ejecutar desde la consola los siguentes comandos, ubicados en la carpeta de la App.
+
+```
+  npm install express
+  npm install morgan
+  npm install ejs-mate
+```
+
+## Iniciar_APP
 
 1. Para iniciar el servidor de sso, debemos ingresar por la consola hasta el directorio /sso-server y ejecutar:
 
