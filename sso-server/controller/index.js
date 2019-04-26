@@ -39,7 +39,7 @@ const fromAuthHeaderAsBearerToken = function() {
 
 const appTokenFromRequest = fromAuthHeaderAsBearerToken();
 
-// app token to validate the request is coming from the authenticated server only.
+// El token de la aplicación para validar la solicitud proviene únicamente del servidor autenticado.
 const appTokenDB = {
   sso_consumer: "l1Q7zkOL59cRqWBkQ12ZiGVW2DBL",
   simple_sso_consumer: "1g0jJwGmRQhJwvwNOrY4i90kD0m"
@@ -54,8 +54,8 @@ const alloweOrigin = {
 const deHyphenatedUUID = () => uuidv4().replace(/-/gi, "");
 const encodedId = () => hashids.encodeHex(deHyphenatedUUID());
 
-// A temporary cahce to store all the application that has login using the current session.
-// It can be useful for variuos audit purpose
+// Un aviso temporal para almacenar todas las aplicaciones que han iniciado sesión con la sesión actual.
+// Puede ser útil para varios propósitos de auditoría.
 const sessionUser = {};
 const sessionApp = {};
 
@@ -67,7 +67,7 @@ const originAppName = {
 const userDB = {
   "info@simple-sso.com": {
     password: "test",
-    userId: encodedId(), // incase you dont want to share the user-email.
+    userId: encodedId(), // En caso de que no desee compartir el correo electrónico del usuario.
     appPolicy: {
       sso_consumer: { role: "admin", shareEmail: true },
       simple_sso_consumer: { role: "user", shareEmail: false }
@@ -75,7 +75,7 @@ const userDB = {
   }
 };
 
-// these token are for the validation purpose
+// estas fichas son para el propósito de validación
 const intrmTokenCache = {};
 
 const fillIntrmTokenCache = (origin, id, intrmToken) => {
@@ -107,7 +107,7 @@ const generatePayload = ssoToken => {
       email,
       shareEmail: undefined,
       uid: user.userId,
-      // global SessionID for the logout functionality.
+      // SessionID global para la funcionalidad de cierre de sesión.
       globalSessionID: globalSessionToken
     }
   };
