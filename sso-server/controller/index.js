@@ -117,9 +117,8 @@ const generatePayload = ssoToken => {
 const verifySsoToken = async (req, res, next) => {
   const appToken = appTokenFromRequest(req);
   const { ssoToken } = req.query;
-  // if the application token is not present or ssoToken request is invalid
-  // if the ssoToken is not present in the cache some is
-  // smart.
+  // si el token de la aplicación no está presente o la solicitud de ssoToken no es válida
+  // si el ssoToken no está presente en el caché, algunos son inteligentes.
   if (
     appToken == null ||
     ssoToken == null ||
@@ -128,28 +127,26 @@ const verifySsoToken = async (req, res, next) => {
     return res.status(400).json({ message: "badRequest" });
   }
 
-  // if the appToken is present and check if it's valid for the application
+  // si el appToken está presente y verifica si es válido para la aplicación
   const appName = intrmTokenCache[ssoToken][1];
   const globalSessionToken = intrmTokenCache[ssoToken][0];
-  // If the appToken is not equal to token given during the sso app registraion or later stage than invalid
+  // Si appToken no es igual al token dado durante el registro de la aplicación sso o en una etapa posterior a la no válida
   if (
     appToken !== appTokenDB[appName] ||
     sessionApp[globalSessionToken][appName] !== true
   ) {
     return res.status(403).json({ message: "Unauthorized" });
   }
-  // checking if the token passed has been generated
+  // comprobando si el token pasado ha sido generado
   const payload = generatePayload(ssoToken);
 
   const token = await genJwtToken(payload);
-  // delete the itremCache key for no futher use,
+  // se elimina la clave itrmCache para ningún otro uso
   delete intrmTokenCache[ssoToken];
   return res.status(200).json({ token });
 };
 const doLogin = (req, res, next) => {
-  // do the validation with email and password
-  // but the goal is not to do the same in this right now,
-  // like checking with Datebase and all, we are skiping these section
+  // hacer la validación con correo electrónico y contraseña
   const { email, password } = req.body;
   if (!(userDB[email] && password === userDB[email].password)) {
     return res.status(404).json({ message: "Email y password erroneos" });
@@ -170,12 +167,12 @@ const doLogin = (req, res, next) => {
 };
 
 const login = (req, res, next) => {
-  // The req.query will have the redirect url where we need to redirect after successful
-  // login and with sso token.
-  // This can also be used to verify the origin from where the request has came in
-  // for the redirection
+  // El req.query tendrá la url de redireccionamiento donde necesitamos redireccionar después de tener éxito
+  // iniciar sesión y con el token sso.
+  // Esto también se puede usar para verificar el origen desde donde se recibió la solicitud
+  // para la redirección
   const { serviceURL } = req.query;
-  // direct access will give the error inside new URL.
+  // El acceso directo dará el error dentro de la nueva URL.
   if (serviceURL != null) {
     const url = new URL(serviceURL);
     if (alloweOrigin[url.origin] !== true) {
@@ -187,7 +184,7 @@ const login = (req, res, next) => {
   if (req.session.user != null && serviceURL == null) {
     return res.redirect("/");
   }
-  // if global session already has the user directly redirect with the token
+  // si la sesión global ya tiene al usuario, lo redirige directamente con el token.
   if (req.session.user != null && serviceURL != null) {
     const url = new URL(serviceURL);
     const intrmid = encodedId();

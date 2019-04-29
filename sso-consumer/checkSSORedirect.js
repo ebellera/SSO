@@ -7,11 +7,11 @@ const ssoServerJWTURL = "http://sso.simple-sso.com.sr.intra.net:3010/simplesso/v
 
 const ssoRedirect = () => {
   return async function(req, res, next) {
-    // check if the req has the queryParameter as ssoToken
-    // and who is the referer.
+    // comprueba si el requisito tiene el queryParameter como ssoToken
+    // y quien es el referente.
     const { ssoToken } = req.query;
     if (ssoToken != null) {
-      // to remove the ssoToken in query parameter redirect.
+     // para eliminar el ssoToken en el redireccionamiento de parรกmetros de consulta.
       const redirectURL = url.parse(req.url).pathname;
       try {
         const response = await axios.get(
@@ -24,9 +24,8 @@ const ssoRedirect = () => {
         );
         const { token } = response.data;
         const decoded = await verifyJwtToken(token);
-        // now that we have the decoded jwt, use the,
-        // global-session-id as the session id so that
-        // the logout can be implemented with the global session.
+        // ahora que hemos descifrado el jwt, usa el, global-session-id como el id de sesiรณn 
+        // para que el cierre de sesiรณn se puede implementar con la sesiรณn global.
         req.session.user = decoded;
       } catch (err) {
         return next(err);
