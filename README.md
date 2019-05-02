@@ -276,6 +276,7 @@ Para lo cual debemos ejecutar desde la consola los siguentes comandos, ubicados 
   npm install express
   npm install morgan
   npm install ejs-mate
+  npm install nodemon
 ```
 
 ## Iniciar_APP
@@ -285,6 +286,7 @@ Para lo cual debemos ejecutar desde la consola los siguentes comandos, ubicados 
 ```
     node index.js
 ```
+> Para iniciar en modo de desarrollo debemos ejecutar npx nodemon .\index.js 
 
 Automáticamente se levantará el webserver que correrá en el puerto 3010, para acceder hay que pegar la siguiente url:
 
@@ -336,6 +338,14 @@ Middleware HTTP de logger para las solicitudes de node.js. Basicamente nos ayuda
 
 Motor de templates para Express
 
+## [Nodemon](https://nodemon.io/)
+
+Cuando estamos desarrollando con NodeJS, cada vez que realizamos un cambio en nuestros ficheros debemos de parar e iniciar de nuevo la aplicación para que estos cambios se vean reflejados. Para evitar esta tarea tan tediosa, vamos a utilizar Nodemon, un paquete de Node que permanece a la escucha de cambios en los ficheros del proyecto y refresca la aplicación sin necesidad de pararla y arrancarla, es decir, nos permite añadir livereload a Node.
+
 ## [GIT](https://git-scm.com/)
 
 Es un sistema de control de revisión distribuido, rápido y escalable con un conjunto de comandos inusualmente rico que proporciona operaciones de alto nivel y acceso completo a las partes internas.
+
+## [GitHub](https://github.com/)
+
+GitHub es una plataforma de desarrollo colaborativo para alojar proyectos utilizando el sistema de control de versiones Git.
