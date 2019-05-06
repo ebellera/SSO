@@ -196,5 +196,18 @@ const login = (req, res, next) => {
     title: "SSO-Server | Login"
   });
 };
-
-module.exports = Object.assign({}, { doLogin, login, verifySsoToken });
+const logout = (req, res) => {
+  // realiza el logout de la sesion.
+  // solo debemos tener en cuenta estas tres relaciones
+  // 1.La sesión local existe, la sesión global debe existir.
+  // 2. La sesión global existe, la sesión local no necesariamente existe.
+  // 3. La sesión global se destruye, la sesión local debe ser destruida.
+  const appToken = appTokenFromRequest(req)
+  const { ssoToken } = req.query
+  if (appToken != null && sssoToken != undefined) {
+    req.session.destroy()
+    delete intrmTokenCache[ssoToken]
+  } 
+  return res.status(200).send('logout success!')
+}
+module.exports = Object.assign({}, { doLogin, login, verifySsoToken, logout })
